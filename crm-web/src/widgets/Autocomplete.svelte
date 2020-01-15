@@ -30,20 +30,16 @@ let filteredListItems = [];
 let text = '';
 let listVisible = false;
 let itemClicked = false;
+let icon;
 
 $: icon = listVisible ? 'arrow_drop_up' : 'arrow_drop_down';
 $: {
   if (text.length >= minCharactersToSearch) {
     const tempFiltered = items.filter(it => keywordsFunction(it)
       .includes(text.toLowerCase()));
-    if (maxLen) {
-      filteredListItems = tempFiltered.slice(0, maxLen);
-    } else {
-      filteredListItems = tempFiltered;
-    }
+    filteredListItems = maxLen ? tempFiltered.slice(0, maxLen) : tempFiltered;
   }
 }
-
 
 function setVal(item) {
   itemClicked = false;
@@ -59,11 +55,7 @@ function setVal(item) {
 }
 
 function handleKeydown(e) {
-  if (e.key === 'Escape') {
-    listVisible = false;
-  } else {
-    listVisible = true;
-  }
+  listVisible = e.key !== 'Escape';
 }
 
 function onFocus(e) {
