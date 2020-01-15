@@ -32,11 +32,13 @@ $: if (hasFocus) {
   <InputStd {label} bind:value={value} {borderColor} {labelColor} {helperText} {icon}
             on:focus
             on:blur
-            {helperTextColor} on:input></InputStd>
+            on:keydown
+            {helperTextColor} on:input/>
 {:else}
   <InputOutlined {label} bind:value={value} {borderColor} {labelColor} {helperText} {icon}
                  on:focus
                  on:blur
-                 {helperTextColor} on:input></InputOutlined>
+                 on:keydown
+                 {helperTextColor} on:input/>
 {/if}
 

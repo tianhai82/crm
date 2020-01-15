@@ -66,6 +66,7 @@ $: if (hasFocus) {
          on:blur="{() => hasFocus=false}"
          on:focus
          on:blur
+         on:keydown
          style="{inputPadBottom}"
          class="pt-6 appearance-none bg-transparent border-none w-full
          text-gray-800 px-2 focus:outline-none"/>

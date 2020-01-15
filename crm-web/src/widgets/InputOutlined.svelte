@@ -28,7 +28,7 @@ let labelElement;
 let legendStyle = '';
 let labelWidth;
 onMount(() => {
-  labelWidth = labelElement.offsetWidth;
+  labelWidth = labelElement.offsetWidth * 7 / 8 + 5;
   iconCls = icon ? 'absolute right-0 bottom-0 pb-3 pr-2 material-icons md-18 pointer-events-none' : 'hidden';
 });
 
@@ -47,18 +47,18 @@ $: if (hasFocus) {
   setLabelColor('absolute left-0 px-2 text-sm pointer-events-none');
   setFieldSetColor('relative rounded border-2');
   y.set(-1.2);
-  legendStyle = `width:${labelWidth}px;margin-left:4px;margin-right:4px;padding-left:4px;padding-right:4px;`;
+  legendStyle = `width:${labelWidth}px;margin-left:6px;`;
   inputPadBottom = 'margin-bottom:4px';
 } else {
   fieldsetCls = 'relative rounded border border-gray-500 hover:border-gray-900';
   inputPadBottom = 'margin-bottom:5px;';
   if (valueEmpty) {
-    legendStyle = ``;
-    labelCls = 'absolute left-0 px-2 pointer-events-none text-gray-600';
+    legendStyle = '';
+    labelCls = 'absolute left-0 ml-2 pointer-events-none text-gray-600';
     y.set(0);
   } else {
     labelCls = 'absolute left-0 px-2 text-sm pointer-events-none text-gray-600';
-    legendStyle = `width:${labelWidth}px;margin-left:4px;margin-right:4px;padding-left:4px;padding-right:4px;`;
+    legendStyle = `width:${labelWidth}px;margin-left:6px;`;
     y.set(-1.2);
   }
 }
@@ -79,6 +79,7 @@ $: if (hasFocus) {
          on:blur="{() => hasFocus=false}"
          on:focus
          on:blur
+         on:keydown
          style="{inputPadBottom}"
          class="h-8 appearance-none bg-transparent border-none w-full
          text-gray-800 px-2 focus:outline-none"/>
