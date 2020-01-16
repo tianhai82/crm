@@ -13,7 +13,7 @@ export let textColor = 'text-black';
 export let outlineColor = 'border-black';
 export let bgColor = 'bg-transparent';
 
-let cls = 'focus:outline-none uppercase tracking-wide';
+let cls = 'focus:outline-none uppercase tracking-wide ripple';
 
 if (outlined) {
   cls += ` border border-solid ${textColor} ${outlineColor} ${bgColor} hover:shadow-lg active:shadow-none`;
