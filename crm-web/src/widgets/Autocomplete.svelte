@@ -7,7 +7,7 @@ const dispatch = createEventDispatcher();
 export let label = '';
 export let items = [];
 export let value = '';
-export let minCharactersToSearch = 1;
+export let minCharactersToSearch = 0;
 export let noResultsText = 'No results found';
 export let maxLen = undefined;
 
@@ -31,6 +31,7 @@ let text = '';
 let listVisible = false;
 let itemClicked = false;
 let icon;
+let highlightIndex = -1;
 
 $: icon = listVisible ? 'arrow_drop_up' : 'arrow_drop_down';
 $: {
@@ -44,18 +45,45 @@ $: {
 function setVal(item) {
   itemClicked = false;
   listVisible = false;
-  value = item;
-  dispatch('change', item);
+  highlightIndex = -1;
+  if (value !== item) {
+    value = item;
+    dispatch('change', item);
+  }
   if (typeof item === 'string') {
     text = item;
   } else {
     text = item[labelFieldName];
   }
+}
 
+function up(listSize, currentIndex) {
+  if (currentIndex === 0 || currentIndex === -1) {
+    return listSize - 1;
+  }
+  return currentIndex - 1;
+}
+
+function down(listSize, currentIndex) {
+  if (currentIndex === listSize - 1) {
+    return 0;
+  }
+  return currentIndex + 1;
 }
 
 function handleKeydown(e) {
   listVisible = e.key !== 'Escape';
+  if (e.key === 'ArrowDown') {
+    highlightIndex = down(filteredListItems.length, highlightIndex);
+  } else if (e.key === 'ArrowUp') {
+    highlightIndex = up(filteredListItems.length, highlightIndex);
+  } else if (e.key === 'Escape') {
+    highlightIndex = -1;
+  } else if (e.key === 'Enter') {
+    if (highlightIndex >= 0 && highlightIndex < filteredListItems.length) {
+      setVal(filteredListItems[highlightIndex]);
+    }
+  }
 }
 
 function onFocus(e) {
@@ -74,6 +102,7 @@ function onBlur() {
   } else {
     text = value[labelFieldName] || '';
   }
+  highlightIndex = -1;
 }
 </script>
 
@@ -88,10 +117,11 @@ function onBlur() {
     class="absolute -mt-4 bg-white w-full shadow-md z-10 {listVisible && text.length>=minCharactersToSearch ? '' : 'hidden'}">
     {#if filteredListItems.length>0}
       <ul class="my-2">
-        {#each filteredListItems as item}
-          <li class="p-3 cursor-pointer hover:bg-gray-200"
-              on:mousedown={()=> itemClicked = true}
-              on:click|stopPropagation|preventDefault={setVal(item)}>{labelFieldName? item[labelFieldName]: item}</li>
+        {#each filteredListItems as item,i}
+          <li
+            class="{`p-3 cursor-pointer hover:bg-gray-200 ${highlightIndex===i?'bg-gray-300':''}`}"
+            on:mousedown={()=> itemClicked = true}
+            on:click|stopPropagation|preventDefault={setVal(item)}>{labelFieldName? item[labelFieldName]: item}</li>
         {/each}
       </ul>
     {:else}
