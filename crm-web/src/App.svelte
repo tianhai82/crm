@@ -29,7 +29,7 @@ function countryChanged(item) {
 </style>
 
 <Tailwindcss/>
-<div class="py-5 px-32 bg-yellow-200">
+<div class="py-5 px-32 bg-yellow-400">
   <h1>Hello {countrySelected.name?countrySelected.name:'No country selected'}!</h1>
   <Button textColor="text-white" bgColor="bg-orange-500">Normal Button</Button>
   <Button textColor="text-orange-500" outlineColor="border-orange-500" outlined rounded>

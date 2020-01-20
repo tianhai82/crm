@@ -114,7 +114,8 @@ function onBlur() {
          on:blur={onBlur}
          on:focus="{onFocus}"/>
   <div
-    class="absolute -mt-4 bg-white w-full shadow-md z-10 {listVisible && text.length>=minCharactersToSearch ? '' : 'hidden'}">
+    class="absolute -mt-4 bg-white rounded-sm w-full shadow-md z-10 {listVisible
+      && text.length>=minCharactersToSearch ? '' : 'hidden'}">
     {#if filteredListItems.length>0}
       <ul class="my-2">
         {#each filteredListItems as item,i}
