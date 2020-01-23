@@ -113,8 +113,8 @@ function onBlur() {
          on:keydown={handleKeydown}
          on:blur={onBlur}
          on:focus="{onFocus}"/>
-  <div
-    class="absolute -mt-4 bg-white rounded-sm w-full shadow-md z-10 {listVisible
+  <div style="max-height: 320px;"
+       class="absolute -mt-4 bg-white rounded-sm w-full shadow-lg z-10 overflow-y-auto {listVisible
       && text.length>=minCharactersToSearch ? '' : 'hidden'}">
     {#if filteredListItems.length>0}
       <ul class="my-2">

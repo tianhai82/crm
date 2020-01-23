@@ -89,7 +89,7 @@ let visible = false;
                 bind:value="{countrySelected}"
                 items="{countries}"
                 keywordsFunction="{it=>`${it.name.toLowerCase()}|^|${it.code.toLowerCase()}`}"
-                labelFieldName="name" minCharactersToSearch={2} maxLen={12}
+                labelFieldName="name" minCharactersToSearch={1}
                 on:change={countryChanged}
                 outlined/>
 
