@@ -114,6 +114,8 @@ function onBlur() {
          on:blur={onBlur}
          on:focus="{onFocus}"/>
   <div style="max-height: 320px;"
+        on:mouseenter={()=> itemClicked = true}
+        on:mouseleave={()=> itemClicked = false}
        class="absolute -mt-4 bg-white rounded-sm w-full shadow-lg z-10 overflow-y-auto {listVisible
       && text.length>=minCharactersToSearch ? '' : 'hidden'}">
     {#if filteredListItems.length>0}
@@ -121,7 +123,6 @@ function onBlur() {
         {#each filteredListItems as item,i}
           <li
             class="{`p-3 cursor-pointer hover:bg-gray-200 ${highlightIndex===i?'bg-gray-300':''}`}"
-            on:mousedown={()=> itemClicked = true}
             on:click|stopPropagation|preventDefault={setVal(item)}>{labelFieldName? item[labelFieldName]: item}</li>
         {/each}
       </ul>

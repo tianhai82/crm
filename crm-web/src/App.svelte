@@ -75,7 +75,7 @@ let dialogVisible = false;
   <Autocomplete borderColor="border-green-600" labelColor="text-red-700" label="Nameol"
                 bind:value="{fruit}"
                 items="{fruits}"/>
-  <Slider/>
+  <!-- <Slider/> -->
   <Input borderColor="border-green-600" labelColor="text-red-700" label="Namewertyu uiou"
          icon="search"
          helperText={error} helperTextColor="text-red-500" bind:value={name}/>
