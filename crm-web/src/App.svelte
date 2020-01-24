@@ -5,6 +5,7 @@ import Input from './widgets/Input.svelte';
 import Autocomplete from './widgets/Autocomplete.svelte';
 import NavigationDrawer from './widgets/NavigationDrawer.svelte';
 import Dialog from './widgets/Dialog.svelte';
+import Slider from './widgets/Slider.svelte';
 import { countries } from './countries';
 
 export let name = '';
@@ -74,7 +75,7 @@ let dialogVisible = false;
   <Autocomplete borderColor="border-green-600" labelColor="text-red-700" label="Nameol"
                 bind:value="{fruit}"
                 items="{fruits}"/>
-
+  <Slider/>
   <Input borderColor="border-green-600" labelColor="text-red-700" label="Namewertyu uiou"
          icon="search"
          helperText={error} helperTextColor="text-red-500" bind:value={name}/>
