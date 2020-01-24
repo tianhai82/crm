@@ -4,6 +4,7 @@ import Button from './widgets/Button.svelte';
 import Input from './widgets/Input.svelte';
 import Autocomplete from './widgets/Autocomplete.svelte';
 import NavigationDrawer from './widgets/NavigationDrawer.svelte';
+import Dialog from './widgets/Dialog.svelte';
 import { countries } from './countries';
 
 export let name = '';
@@ -23,6 +24,7 @@ function countryChanged(item) {
 }
 
 let visible = false;
+let dialogVisible = false;
 </script>
 
 <style>
@@ -58,7 +60,8 @@ let visible = false;
     </div>
   </NavigationDrawer>
   <div class="flex flex-row-reverse">
-    <Button text textColor="text-gray-900" on:click='{()=> visible=!visible}'>Toggle
+    <Button text textColor="text-gray-900" on:click='{()=> dialogVisible=!dialogVisible}'>
+      Toggle
     </Button>
   </div>
   <h1>Hello {countrySelected.name?countrySelected.name:'No country selected'}!</h1>
@@ -85,6 +88,14 @@ let visible = false;
          label="Namewert Country here is very long"
          icon="search"
          helperText={error} helperTextColor="text-red-500" bind:value={name}/>
+  <Dialog bind:visible={dialogVisible} permanent>
+    <div class="p-6 bg-gray-100 w-64 rounded">
+      <div class="flex flex-col">
+      <div class="mb-4">Huat lah!!!</div>
+      <Button on:click={()=>dialogVisible=false} outlined outlineColor="border-green-600" textColor="text-green-600">Close</Button>
+      </div>
+    </div>
+  </Dialog>
   <Autocomplete borderColor="border-green-600" labelColor="text-red-700" label="Nameol"
                 bind:value="{countrySelected}"
                 items="{countries}"
