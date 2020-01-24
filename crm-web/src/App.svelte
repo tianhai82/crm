@@ -46,7 +46,7 @@ let dialogVisible = false;
   </div>
   <span class="mr-6 text-lg uppercase text-white">Tan Yin Loo</span>
 </div>
-<div class="mb-5 mt-16 px-32">
+<div class="mb-5 mt-16 lg:px-32 px-4">
   <NavigationDrawer bind:visible={visible} marginTop="mt-16">
     <div class="w-56 bg-red-100 h-full">
       <h3 class="font-medium px-6 pb-3 pt-4 tracking-wide text-gray-900">Menu</h3>
