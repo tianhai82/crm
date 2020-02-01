@@ -10,6 +10,13 @@
   let normalisedValue;
   $: normalisedValue = scaleValue(value, min, max, 0, 1);
 
+  let normalisedStep = undefined;
+  $: if (step != null) {
+    normalisedStep = step / (max - min);
+  } else {
+    normalisedStep = undefined;
+  }
+
   let width;
   let container;
   let oldVal;
@@ -20,6 +27,7 @@
     if (step == null) {
       return v;
     }
+    return Math.round(v / step) * step;
   }
 
   function scaleValue(v, oldMin, oldMax, newMin, newMax) {
@@ -34,7 +42,7 @@
     if (oldRange <= 0 || newRange <= 0) {
       throw new Error("max should be greater than min");
     }
-    return ((v - oldMin) * newRange) / oldRange + newMin;
+    return +(((v - oldMin) * newRange) / oldRange + newMin).toPrecision(12);
   }
 
   function touchStart(e) {
@@ -49,12 +57,11 @@
     } else if (v > 1) {
       normalisedValue = 1;
     } else {
-      normalisedValue = v;
+      normalisedValue = roundToStep(v, normalisedStep);
     }
     dragStartX = e.touches[0].screenX;
     oldVal = normalisedValue;
-    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
-    value = roundToStep(scaledV, step);
+    value = scaleValue(normalisedValue, 0, 1, min, max);
     mousedown = true;
   }
   function touchMove(e) {
@@ -71,10 +78,9 @@
     } else if (v > 1) {
       normalisedValue = 1;
     } else {
-      normalisedValue = v;
+      normalisedValue = roundToStep(v, normalisedStep);
     }
-    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
-    value = roundToStep(scaledV, step);
+    value = scaleValue(normalisedValue, 0, 1, min, max);
   }
 
   function dragStart(e) {
@@ -86,13 +92,12 @@
     } else if (v > 1) {
       normalisedValue = 1;
     } else {
-      normalisedValue = v;
+      normalisedValue = roundToStep(v, normalisedStep);
     }
     dragStartX = e.screenX;
     oldVal = normalisedValue;
     mousedown = true;
-    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
-    value = roundToStep(scaledV, step);
+    value = scaleValue(normalisedValue, 0, 1, min, max);
   }
   function dragging(e) {
     if (e.pressure === 0) {
@@ -109,10 +114,9 @@
     } else if (v > 1) {
       normalisedValue = 1;
     } else {
-      normalisedValue = v;
+      normalisedValue = roundToStep(v, normalisedStep);
     }
-    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
-    value = roundToStep(scaledV, step);
+    value = scaleValue(normalisedValue, 0, 1, min, max);
   }
   function dragEnd(e) {
     mousedown = false;

@@ -11,7 +11,7 @@
   export let name = "";
   let countrySelected = {};
   let error = "";
-  let sliderValue = 0;
+  let sliderValue = 10;
   $: if (name.trim().length === 0) {
     error = "Please enter a name";
   } else {
@@ -56,11 +56,11 @@
         Menu
       </h3>
       <ul class="">
-        <li
+        <li on:click|preventDefault
           class="px-4 py-3 hover:bg-gray-200 text-gray-800 text-sm tracking-wide">
           Stock Analysis
         </li>
-        <li
+        <li on:click|preventDefault
           class="px-4 py-3 hover:bg-gray-200 text-gray-800 text-sm tracking-wide">
           Subscriptions
         </li>
@@ -75,17 +75,29 @@
       Toggle
     </Button>
   </div>
-  <Button on:click={() => (sliderValue = 0)} bgColor="bg-purple-300">
+  <Button on:click={() => (sliderValue = 10)} bgColor="bg-purple-300">
     Reset Slider Value
   </Button>
-  {sliderValue}
-  <Slider
-    min={-20}
-    max={10}
-    bind:value={sliderValue}
-    thumbColor="text-red-600"
-    trackEmptyColor="bg-red-200"
-    trackFilledColor="bg-red-600" />
+  <div>
+    {sliderValue}
+    <input
+      class="w-full"
+      bind:value={sliderValue}
+      type="range"
+      min="9"
+      max="11"
+      step="0.03" />
+
+    <Slider
+      min={9}
+      max={11}
+      step={0.03}
+      bind:value={sliderValue}
+      thumbColor="text-red-600"
+      trackEmptyColor="bg-red-200"
+      trackFilledColor="bg-red-600" />
+  </div>
+
   <h1>
     Hello {countrySelected.name ? countrySelected.name : 'No country selected'}!
   </h1>
