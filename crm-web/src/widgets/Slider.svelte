@@ -9,13 +9,18 @@
 
   let normalisedValue;
   $: normalisedValue = scaleValue(value, min, max, 0, 1);
-  // $: value = scaleValue(normalisedValue, 0, 1, min, max);
 
   let width;
   let container;
   let oldVal;
   let dragStartX;
   let mousedown = false;
+
+  function roundToStep(v, step) {
+    if (step == null) {
+      return v;
+    }
+  }
 
   function scaleValue(v, oldMin, oldMax, newMin, newMax) {
     if (v < oldMin) {
@@ -48,7 +53,8 @@
     }
     dragStartX = e.touches[0].screenX;
     oldVal = normalisedValue;
-    value = scaleValue(normalisedValue, 0, 1, min, max);
+    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
+    value = roundToStep(scaledV, step);
     mousedown = true;
   }
   function touchMove(e) {
@@ -67,7 +73,8 @@
     } else {
       normalisedValue = v;
     }
-    value = scaleValue(normalisedValue, 0, 1, min, max);
+    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
+    value = roundToStep(scaledV, step);
   }
 
   function dragStart(e) {
@@ -84,7 +91,8 @@
     dragStartX = e.screenX;
     oldVal = normalisedValue;
     mousedown = true;
-    value = scaleValue(normalisedValue, 0, 1, min, max);
+    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
+    value = roundToStep(scaledV, step);
   }
   function dragging(e) {
     if (e.pressure === 0) {
@@ -103,7 +111,8 @@
     } else {
       normalisedValue = v;
     }
-    value = scaleValue(normalisedValue, 0, 1, min, max);
+    const scaledV = scaleValue(normalisedValue, 0, 1, min, max);
+    value = roundToStep(scaledV, step);
   }
   function dragEnd(e) {
     mousedown = false;

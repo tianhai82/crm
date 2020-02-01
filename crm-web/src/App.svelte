@@ -11,7 +11,7 @@
   export let name = "";
   let countrySelected = {};
   let error = "";
-  let sliderValue = 35;
+  let sliderValue = 0;
   $: if (name.trim().length === 0) {
     error = "Please enter a name";
   } else {
@@ -75,11 +75,13 @@
       Toggle
     </Button>
   </div>
-  <Button on:click={() => (sliderValue = 35)}>Set Slider Value to 35</Button>
+  <Button on:click={() => (sliderValue = 0)} bgColor="bg-purple-300">
+    Reset Slider Value
+  </Button>
   {sliderValue}
   <Slider
-    min={20}
-    max={80}
+    min={-20}
+    max={10}
     bind:value={sliderValue}
     thumbColor="text-red-600"
     trackEmptyColor="bg-red-200"
